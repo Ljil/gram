@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+    Список фильмов. Страница {{ page_obj.number }}
+{% endblock %}
+{% block content %}
+    <div class="content">
+        {% for movie in movie_list %}
+            <div class="movie_card">
+            <a href="{{ movie.get_absolute_url }}">
+                <h1>{{ movie.title}}</h1>
+            </a>
+                <img class="big_img" src="{{ movie.poster.url }}">
+                <p>Дата премьеры: {{ movie.release_date }}</p>
+                <p>
+                    {% for genre in movie.genres.all %}
+                        <a href="/?genre={{ genre.slug }}">{{ genre.title }}</a>
+                    {% endfor %}
+                </p>
+                <p>{{ movie.description| truncatechars:'200' }}</p>
+            </div>
+        {% endfor %}
+</div>
+{% include 'include/paginator.html' %}
+{% endblock %}
