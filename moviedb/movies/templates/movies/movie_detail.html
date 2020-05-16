@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ modvie.title }}
+{% endblock %}
+{% block content %}
+    <div class="movie_page">
+        <h1>{{ movie.title }}</h1>
+        <div class="main_info">
+            <img class="big_img" src="{{ movie.poster.url }}">
+            <p>Дата премьеры: {{ movie.release_date }}</p>
+            <p>
+                {% for genre in movie.genres.all %}
+                    <a href="{{ genre.get_absolute_url }}">{{ genre.title }}</a>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="actors">
+            {% for actor in movie.actors.all %}
+                <p>
+                    <img class="actor_preview" src="{{ actor.image.url }}">
+                    <a href="#">{{ actor.name }}</a>
+                </p>
+            {% endfor %}
+        </div>
+        <div class="description">{{ movie.description }}</div>
+    </div>
+{% endblock %}
