@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ person.name }}
+{% endblock %}
+{% block content %}
+    <div class="movie_page">
+        <h1>{{ person.name }}</h1>
+        <div class="main_info">
+            <img class="big_img" src="{{ person.image.url }}">
+            <p>
+            <h1>Актёр</h1>
+            {% for movie in person.as_actor.all %}
+                <p>
+                    <img class="actor_preview" src="{{ movie.poster.url }}">
+                    <a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
+                </p>
+            {% endfor %}
+            </p>
+            <p>
+            <h1>Режиссёр</h1>
+            {% for movie in person.as_director.all %}
+                <p>
+                    <img class="actor_preview" src="{{ movie.poster.url }}">
+                    <a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
+                </p>
+            {% endfor %}
+            </p>
+        </div>
+        <div class="description">{{ person.description }}</div>
+    </div>
+{% endblock %}

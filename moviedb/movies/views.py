@@ -18,3 +18,7 @@ class MovieListView(generic.ListView):
 
 class MovieDetailView(generic.DetailView):
     model = models.Movie
+
+
+class PersonDetailView(generic.DetailView):
+    model = models.Person
