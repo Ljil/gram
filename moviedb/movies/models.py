@@ -9,6 +9,9 @@ class Genre(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('movie_list') + '?genre=' + self.slug
+
     class Meta:
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
@@ -60,6 +63,13 @@ class Movie(models.Model):
 class Gallery(models.Model):
     image = models.ImageField("Фото", upload_to='frames')
     to = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='gallery', blank=True, null=True)
+    to_person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='gallery', blank=True, null=True)
+
+    def __str__(self):
+        if self.to:
+            return self.to.title
+        elif self.to_person:
+            return self.to_person.name
 
     class Meta:
         verbose_name = "Фото"

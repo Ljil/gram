@@ -28,6 +28,11 @@
             </p>
         </div>
         <div class="description">{{ person.description }}</div>
-
+        <div class="gallery">
+            <h1>Фото</h1>
+            {% for picture in person.gallery.all %}
+                <img class="actor_preview" src="{{ picture.image.url }}">
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
