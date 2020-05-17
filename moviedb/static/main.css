@@ -1,7 +1,9 @@
 li {
     list-style: none;
 }
-
+a {
+    text-decoration: none;
+}
 .content {
     margin: auto;
     display: grid;

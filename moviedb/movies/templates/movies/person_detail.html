@@ -6,7 +6,8 @@
     <div class="movie_page">
         <h1>{{ person.name }}</h1>
         <div class="main_info">
-            <img class="big_img" src="{{ person.image.url }}">
+            <img class="big_img" src="{{ person.image.url }}"><br>
+            Дата рождения: {{ person.birth_date }}
             <p>
             <h1>Актёр</h1>
             {% for movie in person.as_actor.all %}
@@ -27,5 +28,6 @@
             </p>
         </div>
         <div class="description">{{ person.description }}</div>
+
     </div>
 {% endblock %}
