@@ -3,7 +3,7 @@
     {{ movie.title }}
 {% endblock %}
 {% block content %}
-    <div class="movie_page">
+    <div>
         <div class="main_info">
             <h1>{{ movie.title }}</h1>
             <img class="big_img" src="{{ movie.poster.url }}">
@@ -22,12 +22,15 @@
                 </p>
             {% endfor %}
         </div>
+        {% if movie.gallery.all %}
+            <div class="gallery">
+                <h1>кадры из фильма</h1>
+                {% for picture in movie.gallery.all %}
+                    <img class="actor_preview" src="{{ picture.image.url }}">
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="description">{{ movie.description }}</div>
-        <div class="gallery">
-            <h1>кадры из фильма</h1>
-            {% for picture in movie.gallery.all %}
-                <img class="actor_preview" src="{{ picture.image.url }}">
-            {% endfor %}
-        </div>
+
     </div>
 {% endblock %}

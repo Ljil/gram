@@ -10,6 +10,7 @@ class Genre(models.Model):
         return self.title
 
     def get_absolute_url(self):
+        """Переход на главную + выборка жанра"""
         return reverse('movie_list') + '?genre=' + self.slug
 
     class Meta:
@@ -70,6 +71,8 @@ class Gallery(models.Model):
             return self.to.title
         elif self.to_person:
             return self.to_person.name
+        else:
+            return self.image.name
 
     class Meta:
         verbose_name = "Фото"

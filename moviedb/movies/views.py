@@ -12,7 +12,6 @@ class MovieListView(generic.ListView):
             ).distinct()
         else:
             return models.Movie.objects.filter(published=True)
-
     paginate_by = 2
 
 
