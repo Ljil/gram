@@ -1,0 +1,30 @@
+.person_page {
+    max-width: 1000px;
+    margin: 3rem auto;
+}
+
+.head {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.description {
+    margin: 2rem auto;
+}
+
+.works {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.actor_page_image_preview {
+    max-width: 10rem;
+    max-height: 10rem;
+    margin-right: 1rem;
+}
+
+.actor_paige_movie_card {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 1rem auto;
+}

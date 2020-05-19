@@ -3,36 +3,65 @@
     {{ person.name }}
 {% endblock %}
 {% block content %}
-    <div class="movie_page">
+    <div class="person_page">
         <h1>{{ person.name }}</h1>
-        <div class="main_info">
-            <img class="big_img" src="{{ person.image.url }}"><br>
-            Дата рождения: {{ person.birth_date }}
+        <div class="head">
+            <div>
+                <img class="big_img" src="{{ person.image.url }}">
+                <p>Дата рождения: {{ person.birth_date }}</p>
+            </div>
+            <div class="gallery">
+                <h1>Фото</h1>
+                {% for picture in person.gallery.all %}
+                    <img class="actor_page_image_preview" src="{{ picture.image.url }}">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="description">
+            <h4>Описание</h4>
             <p>
-            <h1>Актёр</h1>
-            {% for movie in person.as_actor.all %}
-                <p>
-                    <img class="actor_preview" src="{{ movie.poster.url }}">
-                    <a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
-                </p>
-            {% endfor %}
-            </p>
-            <p>
-            <h1>Режиссёр</h1>
-            {% for movie in person.as_director.all %}
-                <p>
-                    <img class="actor_preview" src="{{ movie.poster.url }}">
-                    <a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
-                </p>
-            {% endfor %}
+                {{ person.description }}
             </p>
         </div>
-        <div class="description">{{ person.description }}</div>
-        <div class="gallery">
-            <h1>Фото</h1>
-            {% for picture in person.gallery.all %}
-                <img class="actor_preview" src="{{ picture.image.url }}">
-            {% endfor %}
+        <div class="works">
+            <div>
+                <h1>Актёр</h1>
+                {% for movie in person.as_actor.all %}
+                    <div class="actor_paige_movie_card">
+                        <img class="actor_page_image_preview" src="{{ movie.poster.url }}">
+                        <div>
+                            <a href="{{ movie.get_absolute_url }}">
+                                <h3>{{ movie.title }}</h3>
+                            </a>
+                            <p>
+                                Дата выхода: {{ movie.release_date }}
+                            </p>
+                            <p>
+                                {{ movie.description| truncatechars:'200' }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                <h1>Режиссёр</h1>
+                {% for movie in person.as_director.all %}
+                    <div class="actor_paige_movie_card">
+                        <img class="actor_page_image_preview" src="{{ movie.poster.url }}">
+                        <div>
+                            <a href="{{ movie.get_absolute_url }}">
+                                <h3>{{ movie.title }}</h3>
+                            </a>
+                            <p>
+                                Дата выхода: {{ movie.release_date }}
+                            </p>
+                            <p>
+                                {{ movie.description| truncatechars:'200' }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
