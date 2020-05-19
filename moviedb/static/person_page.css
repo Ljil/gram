@@ -28,3 +28,7 @@
     grid-template-columns: auto auto;
     margin: 1rem auto;
 }
+
+.actor_paige_movie_card div p {
+    margin: 1rem auto;
+}
