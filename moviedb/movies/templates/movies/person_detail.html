@@ -14,7 +14,7 @@
                 <img class="big_img" src="{{ person.image.url }}">
                 <p>Дата рождения: {{ person.birth_date }}</p>
             </div>
-            <div class="gallery">
+            <div>
                 <h1>Фото</h1>
                 {% for picture in person.gallery.all %}
                     <img class="actor_page_image_preview" src="{{ picture.image.url }}">

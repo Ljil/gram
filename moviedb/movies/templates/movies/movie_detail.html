@@ -1,36 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'movie_detail.css' %}"/>
+{% endblock %}
 {% block title %}
     {{ movie.title }}
 {% endblock %}
 {% block content %}
-    <div>
-        <div class="main_info">
-            <h1>{{ movie.title }}</h1>
-            <img class="big_img" src="{{ movie.poster.url }}">
-            <p>Дата премьеры: {{ movie.release_date }}</p>
-            <p>
-                {% for genre in movie.genres.all %}
-                    <a href="{{ genre.get_absolute_url }}">{{ genre.title }}</a>
-                {% endfor %}
-            </p>
-        </div>
-        <div class="actors">
-            {% for actor in movie.actors.all %}
+    <div class="movie_page">
+        <h1>{{ movie.title }}</h1>
+        <div class="movie_page_head">
+            <div class="main_info">
+                <img class="big_img" src="{{ movie.poster.url }}">
+                <p>Дата премьеры: {{ movie.release_date }}</p>
                 <p>
-                    <img class="actor_preview" src="{{ actor.image.url }}">
-                    <a href="{{ actor.get_absolute_url }}">{{ actor.name }}</a>
+                    {% for genre in movie.genres.all %}
+                        <a href="{{ genre.get_absolute_url }}">{{ genre.title }}</a>
+                    {% endfor %}
                 </p>
-            {% endfor %}
-        </div>
-        {% if movie.gallery.all %}
-            <div class="gallery">
-                <h1>кадры из фильма</h1>
-                {% for picture in movie.gallery.all %}
-                    <img class="actor_preview" src="{{ picture.image.url }}">
+            </div>
+            <div class="actors">
+                {% for actor in movie.actors.all %}
+                    <p>
+                        <img class="movie_page_image_preview" src="{{ actor.image.url }}">
+                        <a href="{{ actor.get_absolute_url }}">{{ actor.name }}</a>
+                    </p>
                 {% endfor %}
             </div>
-        {% endif %}
-        <div class="description">{{ movie.description }}</div>
+        </div>
+        <h1>кадры из фильма</h1>
+        <div class="movie_page_gallery">
+            {% for picture in movie.gallery.all %}
+                <img class="movie_page_image_preview" src="{{ picture.image.url }}">
+            {% empty %}
+                <p>Фото не добавлены</p>
+            {% endfor %}
+        </div>
+
+        <div class="movie_page_description">{{ movie.description }}</div>
 
     </div>
 {% endblock %}

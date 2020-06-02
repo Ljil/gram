@@ -6,51 +6,6 @@
 li {
     list-style: none;
 }
-.content {
-    margin: auto;
-    display: grid;
-    border: 1px black dashed;
-    max-width: 1000px;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-}
-
-.movie_card {
-    border: 1px gray solid;
-    text-align: center;
-    margin: 2rem;
-}
 .big_img {
-    max-height: 20rem;
-}
-
-.little_img {
-    max-height: 50px;
-    max-width: 50px;
-}
-
-.paginator {
-    text-align: center;
-    margin: 2rem;
-    border: 1px gray dashed;
-}
-
-.movie_page {
-    display: grid;
-    grid-template-areas:
-            "poster actors"
-            "description description";
-}
-
-.main_info {
-    grid-area: poster;
-}
-.actors {
-    grid-area: actors;
-}
-.description {
-    grid-area: description;
-}
-.actor_preview {
-    max-height: 5rem;
+    max-height: 30rem;
 }

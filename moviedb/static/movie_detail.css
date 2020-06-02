@@ -1,0 +1,36 @@
+.movie_page {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.movie_page_head {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.movie_page_head div {
+    margin: 1rem;
+    text-align: left;
+}
+.movie_page_actor_preview {
+    max-height: 10rem;
+    max-width: 10rem;
+}
+
+.movie_page_image_preview {
+    max-width: 10rem;
+    max-height: 10rem;
+    margin-right: 1rem;
+}
+
+.movie_page_description {
+    margin: 2rem;
+    text-align: left;
+}
+
+.movie_page_gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}

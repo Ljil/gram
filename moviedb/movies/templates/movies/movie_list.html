@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block  styles %}
+    <link rel="stylesheet" href="{% static 'movie_list.css' %}"/>
+    <link rel="stylesheet" href="{% static 'paginator.css' %}"/>
+{% endblock %}
 {% block title %}
     Список фильмов. Страница {{ page_obj.number }}
 {% endblock %}
@@ -6,19 +11,19 @@
     <div class="content">
         {% for movie in movie_list %}
             <div class="movie_card">
-            <a href="{{ movie.get_absolute_url }}">
-                <h1>{{ movie.title}}</h1>
-            </a>
-                <img class="big_img" src="{{ movie.poster.url }}">
-                <p>Дата премьеры: {{ movie.release_date }}</p>
-                <p>
-                    {% for genre in movie.genres.all %}
-                        <a href="/?genre={{ genre.slug }}">{{ genre.title }}</a>
-                    {% endfor %}
-                </p>
-                <p>{{ movie.description| truncatechars:'200' }}</p>
+                <a href="{{ movie.get_absolute_url }}">
+                    <h2>{{ movie.title}}</h2>
+                    <img class="big_img" src="{{ movie.poster.url }}">
+                    <p>Дата премьеры: {{ movie.release_date }}</p>
+                    <p>
+                        {% for genre in movie.genres.all %}
+                            <a href="/?genre={{ genre.slug }}">{{ genre.title }}</a>
+                        {% endfor %}
+                    </p>
+                    <p>{{ movie.description| truncatechars:'200' }}</p>
+                </a>
             </div>
         {% endfor %}
-</div>
-{% include 'include/paginator.html' %}
+    </div>
+    {% include 'include/paginator.html' %}
 {% endblock %}
