@@ -2,20 +2,26 @@ from django.views import generic
 from . import models
 
 
-class GenresMixin:
-    def get_genres(self):
+# для склейки запроса
+from functools import reduce
+from operator import and_
+from django.db.models import Q
+
+
+class MovieListView(generic.ListView):
+    @staticmethod
+    def get_genres():
         return models.Genre.objects.all()
 
-
-class MovieListView(generic.ListView, GenresMixin):
     def get_queryset(self):
+        query = models.Movie.objects.filter(published=True)
         if self.request.GET.getlist('genre'):
-            return models.Movie.objects.filter(
-                published=True,
-                genres__slug__in=self.request.GET.getlist('genre')
-            ).distinct()
-        else:
-            return models.Movie.objects.filter(published=True)
+            # Выбираются фильмы в которых есть хотя бы 1 жанр из списка
+            # return query.filter(genres__slug__in=self.request.GET.getlist('genre')).distinct()
+            # Выбираются только фильмы, удовлетворяющие всем жанрам
+            return query.exclude(~reduce(and_, [Q(genres__slug=c) for c in self.request.GET.getlist('genre')])).distinct()
+        return query
+
     paginate_by = 5
 
 
