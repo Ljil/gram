@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Genre(models.Model):
@@ -56,6 +57,12 @@ class Movie(models.Model):
     def get_absolute_url(self):
         return reverse('movie_detail', kwargs={'pk': self.id})
 
+    def get_positive_likes_count(self):
+        return self.reviews.filter(liked=True).count()
+
+    def get_negative_likes_count(self):
+        return self.reviews.filter(liked=False).count()
+
     class Meta:
         verbose_name = "Фильм"
         verbose_name_plural = "Фильмы"
@@ -77,3 +84,17 @@ class Gallery(models.Model):
     class Meta:
         verbose_name = "Фото"
         verbose_name_plural = "Фото"
+
+
+class Review(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    text = models.TextField("Отзыв")
+    liked = models.BooleanField("Нравится/Не нравится")
+    to = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews", null=True)
+
+    def __str__(self):
+        return self.text[:40]
+
+    class Meta:
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"

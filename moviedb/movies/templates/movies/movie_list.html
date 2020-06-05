@@ -9,17 +9,7 @@
     Список фильмов. Страница {{ page_obj.number }}
 {% endblock %}
 {% block content %}
-    <div class="form_container">
-        <form action="{% url 'movie_list' %}" method="get">
-            {% for genre in view.get_genres %}
-                <p>
-                    <input type="checkbox" name="genre" id="{{ genre.slug }}" value="{{ genre.slug }}">
-                    <label for="{{ genre.slug }}">{{ genre }}</label>
-                </p>
-            {% endfor %}
-            <button type="submit">Отправить</button>
-        </form>
-    </div>
+    {% include 'include/filter_form.html' %}
     <div class="content">
         {% for movie in movie_list %}
             <div class="movie_card">

@@ -27,7 +27,7 @@ class MovieListView(generic.ListView):
             ).distinct()
         return query
 
-    paginate_by = 1
+    paginate_by = 2
 
 
 class MovieDetailView(generic.DetailView):

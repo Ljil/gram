@@ -34,3 +34,8 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
+
+.review_icon {
+    height: 2rem;
+    width: 2rem;
+}

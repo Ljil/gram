@@ -18,6 +18,7 @@
                         <a href="{{ genre.get_absolute_url }}">{{ genre.title }}</a>
                     {% endfor %}
                 </p>
+            Рейтинг: +{{ movie.get_positive_likes_count }}/-{{ movie.get_negative_likes_count }}
             </div>
             <div class="actors">
                 {% for actor in movie.actors.all %}
@@ -37,5 +38,24 @@
             {% endfor %}
         </div>
         <div class="movie_page_description">{{ movie.description }}</div>
+        <div class="movie_page_description">
+        <h1>Отзывы</h1>
+            {% for review in movie.reviews.all %}
+                <p>
+                <h3>{{ review.author.username }}</h3>
+                    {% if review.liked %}
+                        <img class="review_icon" src="{% static 'images/green.png' %}">
+                {% else %}
+                        <img class="review_icon" src="{% static 'images/red.png' %}">
+                {% endif %}
+                <p>
+                {{ review.text }}
+                </p>
+
+                </p>
+            {% empty %}
+                Отзывов пока нет
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

@@ -12,8 +12,5 @@
                 {{ page_obj.next_page_number }}
             </a>
         {% endif %}
-        {% for arg in view.get_args %}
-            &genre={{ arg }}
-        {% endfor %}
     {% endif %}
 </div>
