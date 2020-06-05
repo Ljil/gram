@@ -13,16 +13,21 @@ class MovieListView(generic.ListView):
     def get_genres():
         return models.Genre.objects.all()
 
+    def get_args(self):
+        return self.request.GET.getlist('genre')
+
     def get_queryset(self):
         query = models.Movie.objects.filter(published=True)
         if self.request.GET.getlist('genre'):
             # Выбираются фильмы в которых есть хотя бы 1 жанр из списка
             # return query.filter(genres__slug__in=self.request.GET.getlist('genre')).distinct()
             # Выбираются только фильмы, удовлетворяющие всем жанрам
-            return query.exclude(~reduce(and_, [Q(genres__slug=c) for c in self.request.GET.getlist('genre')])).distinct()
+            return query.exclude(
+                ~reduce(and_, [Q(genres__slug=c) for c in self.request.GET.getlist('genre')])
+            ).distinct()
         return query
 
-    paginate_by = 5
+    paginate_by = 1
 
 
 class MovieDetailView(generic.DetailView):

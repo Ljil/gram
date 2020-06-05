@@ -1,10 +1,19 @@
 {% load static %}
 <div class="paginator">
-    {% if page_obj.has_previous %}
-        <a href="/?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-    {% endif %}
-    {{ page_obj.number }}
-    {% if page_obj.has_next %}
-        <a href="/?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a href="/?page={{ page_obj.previous_page_number }}{% for arg in view.get_args %}&genre={{ arg }}{% endfor %}">
+                {{ page_obj.previous_page_number }}
+            </a>
+        {% endif %}
+        {{ page_obj.number }}
+        {% if page_obj.has_next %}
+            <a href="/?page={{ page_obj.next_page_number }}{% for arg in view.get_args %}&genre={{ arg }}{% endfor %}">
+                {{ page_obj.next_page_number }}
+            </a>
+        {% endif %}
+        {% for arg in view.get_args %}
+            &genre={{ arg }}
+        {% endfor %}
     {% endif %}
 </div>
