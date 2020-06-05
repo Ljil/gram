@@ -18,7 +18,7 @@
                         <a href="{{ genre.get_absolute_url }}">{{ genre.title }}</a>
                     {% endfor %}
                 </p>
-            Рейтинг: +{{ movie.get_positive_likes_count }}/-{{ movie.get_negative_likes_count }}
+                Рейтинг: +{{ movie.get_positive_likes_count }}/-{{ movie.get_negative_likes_count }}
             </div>
             <div class="actors">
                 {% for actor in movie.actors.all %}
@@ -39,17 +39,25 @@
         </div>
         <div class="movie_page_description">{{ movie.description }}</div>
         <div class="movie_page_description">
-        <h1>Отзывы</h1>
+            <h1>Отзывы</h1>
+            {% if user.is_authenticated %}
+                <form method="post" action="{{ movie.get_absolute_url }}">
+                    {% csrf_token %}
+                    <input type="text" name="review_text">
+                    <input type="checkbox" name="is_liked">
+                    <button type="submit">Отправить</button>
+                </form>
+            {% endif %}
             {% for review in movie.reviews.all %}
                 <p>
                 <h3>{{ review.author.username }}</h3>
-                    {% if review.liked %}
-                        <img class="review_icon" src="{% static 'images/green.png' %}">
+                {% if review.liked %}
+                    <img class="review_icon" src="{% static 'images/green.png' %}">
                 {% else %}
-                        <img class="review_icon" src="{% static 'images/red.png' %}">
+                    <img class="review_icon" src="{% static 'images/red.png' %}">
                 {% endif %}
                 <p>
-                {{ review.text }}
+                    {{ review.text }}
                 </p>
 
                 </p>

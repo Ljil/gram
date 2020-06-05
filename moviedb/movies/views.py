@@ -1,5 +1,7 @@
 from django.views import generic
 from . import models
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 
 # для склейки запроса
@@ -9,6 +11,7 @@ from django.db.models import Q
 
 
 class MovieListView(generic.ListView):
+
     @staticmethod
     def get_genres():
         return models.Genre.objects.all()
@@ -32,6 +35,17 @@ class MovieListView(generic.ListView):
 
 class MovieDetailView(generic.DetailView):
     model = models.Movie
+
+    def post(self, request, pk):
+        if request.user.is_authenticated:
+            review = models.Review(
+                author=request.user,
+                text=request.POST.get('review_text'),
+                liked=bool(request.POST.get('is_liked')),
+                to_id=pk
+            )
+            review.save()
+        return HttpResponseRedirect(request.build_absolute_uri())
 
 
 class PersonDetailView(generic.DetailView):

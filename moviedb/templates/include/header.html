@@ -1,7 +1,14 @@
 
 <header>
     <nav>
-        <a href="/">Главная страница</a>
+        <span>
+            Hello,
+            {% if user.is_authenticated %}
+                {{ user.username }}
+            {% else %}
+                %username%
+            {% endif %}!
+        </span>
         <a href="/">Главная страница</a>
         <a href="/">Главная страница</a>
         <a href="/">Главная страница</a>
